@@ -1,0 +1,135 @@
+.down-arrow {
+    margin-top: 30px;
+    font-weight: bold
+}
+
+section > code {
+    white-space: nowrap;
+}
+
+pre {
+    max-height: 400px;
+    overflow: auto;
+}
+
+pre code {
+    padding: 1.5em !important;
+}
+
+.reveal .themes {
+    font-size: .5em;
+    margin: 40px auto 0 auto;
+}
+
+.reveal .filename {
+    margin-top: 20px;
+    margin-right: 45px;
+    text-align: right;
+    color: #EEEEEE;
+    font-size: 18px;
+}
+
+.reveal .column2 {
+    -webkit-column-count: 2;
+    -moz-column-count: 2;
+    column-count: 2;
+    column-gap: 50px;
+    -webkit-column-gap: 50px;
+    -moz-column-gap: 50px;
+    width: 100%;
+    vertical-align: top;
+    min-width: 900px;
+    margin: 0 auto;
+}
+
+.reveal .top {
+    position: absolute;
+    top: -350px;
+    text-align: center;
+    width: 100%;
+}
+
+.reveal .comparison {
+    position: absolute;
+    top: -250px;
+    width: 100%;
+}
+
+.reveal .comparison .fragment {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    width: 100%;
+}
+
+.reveal .comparison img.fragment {
+    left: 20px;
+}
+
+.reveal .footer {
+    margin: 50px auto 0 auto;
+    text-align: center;
+    width: 80%;
+    font-size: 20px;
+}
+
+.reveal .footer ul {
+    list-style: none;
+}
+
+.reveal .footer .roll {
+    line-height: 2.1;
+}
+
+.reveal .legend {
+    font-size: .4em;
+    color: black;
+    width: 200px;
+    position: absolute;
+    top: 170px;
+    right: 80px;
+}
+
+.reveal .quote {
+    position: absolute;
+    width: 100%;
+    background: rgba(32, 32, 32, 0.6);
+    left: 100px;
+}
+
+.reveal .faded {
+    position: absolute;
+    width: 100%;
+    background: rgba(32, 32, 32, 0.8);
+    left: 100px !important;
+}
+
+.legend .box {
+    width: 10px;
+    height: 10px;
+    display: inline-block;
+    vertical-align: middle;
+    margin-right: 5px;
+}
+
+.legend .box:last-child {
+    margin-left: 20px;
+}
+
+.legend .blue {
+    background: blue;
+}
+
+.legend .red {
+    background: red;
+}
+
+.footer header {
+    border-bottom: 1px solid silver;
+    font-size: 24px;
+}
+
+.reveal .chart {
+    margin: 0 auto;
+}

@@ -1,0 +1,323 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+
+    <title>Comparing Elasticity of Reactive Frameworks</title>
+
+    <meta name="description" content="The world is going Reactive and there are now a number of different ways get there. The Reactive Manifesto states that Reactive apps must be 'Elastic' so this session will use code examples and real apps to compare the different models of elasticity in frameworks like the Typesafe Platform (Play Framework, Akka, and Scala), RxJava, Reactive Streams, and NodeJS. Traits like programming model, back pressure, and horizontal scaling will be considered in the comparison.">
+    <meta name="author" content="James Ward">
+
+    <meta name="apple-mobile-web-app-capable" content="yes"/>
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="css/reveal.min.css">
+    <link rel="stylesheet" href="css/theme/default.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="lib/css/zenburn.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/smackdown.css">
+
+    <!-- If the query includes 'print-pdf', use the PDF print sheet -->
+    <script>
+        document.write('<link rel="stylesheet" href="css/print/' + ( window.location.search.match(/print-pdf/gi) ? 'pdf' : 'paper' ) + '.css" type="text/css" media="print">');
+    </script>
+
+    <!--[if lt IE 9]>
+    <script src="lib/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <script src="http://www.google.com/jsapi"></script>
+    <script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+</head>
+
+<body>
+
+<div class="reveal">
+
+<!-- Any section element inside of this container is displayed as a slide -->
+<div class="slides">
+<section id="intro">
+    <h2>Comparing Elasticity of Reactive Frameworks</h2>
+
+    <h3 class="inverted">James Ward</h3>
+
+    <p><a href="http://twitter.com/_jamesward">@_JamesWard</a></p>
+    <script>
+        // Delicously hacky. Look away.
+        if (navigator.userAgent.match(/(iPhone|iPad|iPod|Android)/i)) document.write('<p style="color: rgba(0,0,0,0.3); text-shadow: none;">(' + 'Swipe to navigate' + ')</p>');
+    </script>
+</section>
+
+<section>
+    <section>
+        <h2>Users Want</h2>
+        <ul>
+            <li class="fragment">In-Sync Data</li>
+            <li class="fragment">Real-time Collaboration</li>
+            <li class="fragment">Instant Feedback</li>
+            <li class="fragment">To Not Wait</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Users Want Reactive Apps</h2>
+        <h3><a href="http://www.ReactiveManifesto.org">www.ReactiveManifesto.org</a></h3>
+        <img src="assets/reactive-traits.svg" style="background-color: #ffffff">
+    </section>
+    <section>
+        <h2>Elastic</h2>
+        <blockquote>The system stays responsive under varying workload. Reactive Systems can react to changes in the input rate by increasing or decreasing the resources allocated to service these inputs. This implies designs that have <strong style="color: red">no contention points</strong> or central bottlenecks, resulting in the ability to shard or replicate components and <strong style="color: red">distribute inputs</strong> among them. Reactive Systems support predictive, as well as Reactive, scaling algorithms by providing relevant live performance measures. They achieve elasticity in a cost-effective way on commodity hardware and software platforms.</blockquote>
+    </section>
+    <section>
+        <h2>Elastic</h2>
+
+        <blockquote>Resource Contention is a conflict over access to a shared resource</blockquote>
+
+        <ul>
+            <li class="fragment">Message-Driven / Async</li>
+            <li class="fragment">Reactive All The Way Down</li>
+            <li class="fragment">Idle Threads = Contention Point</li>
+            <li class="fragment">Shared / Distributed state = Contention Point</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Reactive Streams</h2>
+        <h3><a href="http://www.reactive-streams.org/">www.reactive-streams.org</a></h3>
+
+        <img src="assets/reactive-streams.png" width="80%">
+    </section>
+    <section>
+        <h2>Back Pressure</h2>
+
+        <ul>
+            <li class="fragment">Stream-oriented</li>
+            <li class="fragment">Sensible behavior on resource contention</li>
+            <li class="fragment">Avoids unnecessary buffering</li>
+            <li class="fragment">Iteratees, Rx, Reactive Streams</li>
+        </ul>
+    </section>
+    <section>
+        <h2>Reactive Requests &amp; Reactive Composition</h2>
+
+        <img src="assets/reactive-requests.png">
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Example Use Case</h2>
+
+        <small>Reactive composition of stateless nano-services</small>
+        <ol>
+            <li>Request a random number that is around 5</li>
+            <li>Make that many requests to a random word service</li>
+            <li>Return the random string of gibberish</li>
+        </ol>
+    </section>
+    <section>
+        <h2>The Old Way</h2>
+
+        <ul>
+            <li>Servlets, Blocking, &amp; No-Parallelism (cause it's hard)</li>
+            <li>Code: <a href="https://github.com/jamesward/gibberish-legacy">github.com/jamesward/gibberish-legacy</a></li>
+            <li>App: <a href="http://gibberish-legacy.herokuapp.com">gibberish-legacy.herokuapp.com</a></li>
+        </ul>
+    </section>
+    <section>
+        <h2>Play + Scala</h2>
+
+        <ul>
+            <li>Netty for Reactive IO</li>
+            <li>Scala Futures for Async & Parallelism</li>
+            <li>Code: <a href="https://github.com/jamesward/gibberish-play">github.com/jamesward/gibberish-play</a></li>
+            <li>App: <a href="http://gibberish-play.herokuapp.com">gibberish-play.herokuapp.com</a></li>
+        </ul>
+    </section>
+    <section>
+        <h2>RatPack + RxJava</h2>
+
+        <ul>
+            <li>Netty for Reactive IO</li>
+            <li>RxJava Observables for Async</li>
+            <li>RxRatPack for Adapters and Parallelism</li>
+            <li>Code: <a href="https://github.com/jamesward/gibberish-ratpack-rxjava">github.com/jamesward/gibberish-ratpack-rxjava</a></li>
+            <li>App: <a href="http://gibberish-ratpack-rxjava.herokuapp.com">gibberish-ratpack-rxjava.herokuapp.com</a></li>
+        </ul>
+    </section>
+    <section>
+        <h2>Akka HTTP</h2>
+
+        <ul>
+            <li>Reactive Actor-based IO (Akka IO)</li>
+            <li>Reactive Streams</li>
+            <li>Very New &amp; Experimental</li>
+            <li>Producer &amp; Consumer with Non-Blocking Back Pressure</li>
+            <li>Code: <a href="https://github.com/jamesward/gibberish-akka-http">github.com/jamesward/gibberish-akka-http</a></li>
+        </ul>
+    </section>
+    <section>
+        <h2>NodeJS + Express + Q</h2>
+
+        <ul>
+            <li>Express for routing / request handling</li>
+            <li>Requests for HTTP requests</li>
+            <li>Q for Async</li>
+            <li>Code: <a href="https://github.com/jamesward/gibberish-nodejs-express">github.com/jamesward/gibberish-nodejs-express</a></li>
+            <li>App: <a href="http://gibberish-nodejs-express.herokuapp.com">gibberish-nodejs-express.herokuapp.com</a></li>
+        </ul>
+    </section>
+</section>
+
+<section>
+    <section>
+        <h2>Load Testing</h2>
+
+        <ul>
+            <li>Pretty Unscientific</li>
+            <li>Zero App Optimizations</li>
+            <li>All Apps run on Heroku</li>
+            <li>No Auto-Scaling</li>
+            <li>loader.io for Load Test</li>
+            <li><a href="http://randnum.herokuapp.com">randnum.herokuapp.com</a> - 10 Dynos</li>
+            <li><a href="http://random-word.herokuapp.com">random-word.herokuapp.com</a> - 50 Dynos</li>
+        </ul>
+    </section>
+    <section style="text-align: center;">
+        <h2>Legacy - 1000 Concurrent for 1 Minute</h2>
+        <script>
+            google.setOnLoadCallback(drawLoadChart);
+
+            function drawLoadChart() {
+
+               var data = google.visualization.arrayToDataTable([
+                    ['1000 Concurrent for 1 Minute', 'Requests / Sec', 'Average Response Time (ms)'],
+                    ['1 Dyno',  401, 2406],
+                    ['2 Dynos', 588, 1606],
+                    ['4 Dynos', 728, 1302],
+                    ['8 Dynos', 1242, 766]
+                ]);
+
+                var chart = new google.visualization.LineChart(document.getElementById('legacy_chart'));
+                chart.draw(data, {width:900, height:500, hAxis: {viewWindow: {min:0}}, curveType: 'function'});
+            }
+        </script>
+        <div id="legacy_chart" class="chart" style="width: 900px; height: 500px;"></div>
+    </section>
+    <section style="text-align: center;">
+        <h2>Play - 1000 Concurrent for 1 Minute</h2>
+        <script>
+            google.setOnLoadCallback(drawLoadChart);
+
+            function drawLoadChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['1000 Concurrent for 1 Minute', 'Requests / Sec', 'Average Response Time (ms)'],
+                    ['1 Dyno',  1197, 792],
+                    ['2 Dynos', 1487, 647],
+                    ['4 Dynos', 2364, 411],
+                    ['8 Dynos', 2884, 332]
+                ]);
+
+                var chart = new google.visualization.LineChart(document.getElementById('play_chart'));
+                chart.draw(data, {width:900, height:500, hAxis: {viewWindow: {min:0}}, curveType: 'function'});
+            }
+        </script>
+        <div id="play_chart" class="chart" style="width: 900px; height: 500px;"></div>
+    </section>
+    <section style="text-align: center;">
+        <h2>RatPack - 1000 Concurrent for 1 Minute</h2>
+        <script>
+            google.setOnLoadCallback(drawLoadChart);
+
+            function drawLoadChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['1000 Concurrent for 1 Minute', 'Requests / Sec', 'Average Response Time (ms)'],
+                    ['1 Dyno',  167, 4849],
+                    ['2 Dynos', 341, 2702],
+                    ['4 Dynos', 597, 1468],
+                    ['8 Dynos', 1168, 814]
+                ]);
+
+                var chart = new google.visualization.LineChart(document.getElementById('ratpack_chart'));
+                chart.draw(data, {width:900, height:500, hAxis: {viewWindow: {min:0}}, curveType: 'function'});
+            }
+        </script>
+        <div id="ratpack_chart" class="chart" style="width: 900px; height: 500px;"></div>
+    </section>
+    <section style="text-align: center;">
+        <h2>NodeJS - 100 Concurrent for 1 Minute</h2>
+        <script>
+            google.setOnLoadCallback(drawLoadChart);
+
+            function drawLoadChart() {
+
+                var data = google.visualization.arrayToDataTable([
+                    ['1000 Concurrent for 1 Minute', 'Requests / Sec', 'Average Response Time (ms)'],
+                    ['1 Dyno',  58, 1697],
+                    ['2 Dynos', 80, 1156],
+                    ['4 Dynos', 92, 993],
+                    ['8 Dynos', 189, 508]
+                ]);
+
+                var chart = new google.visualization.LineChart(document.getElementById('nodejs_chart'));
+                chart.draw(data, {width:900, height:500, hAxis: {viewWindow: {min:0}}, curveType: 'function'});
+            }
+        </script>
+        <div id="nodejs_chart" class="chart" style="width: 900px; height: 500px;"></div>
+    </section>
+</section>
+
+<section class="conclusions">
+    <h2>Conclusions</h2>
+
+    <ul>
+        <li class="fragment">Stateless apps scale horizontally</li>
+        <li class="fragment">Reactive Composition is pretty easy</li>
+        <li class="fragment">Reactive all the way down is optimal</li>
+        <li class="fragment">Do your own load tests</li>
+    </ul>
+</section>
+
+</div>
+
+</div>
+
+<script src="js/github-files.js"></script>
+<script src="lib/js/head.min.js"></script>
+<script src="js/reveal.min.js"></script>
+
+<script>
+    // load the google charts library
+    google.load('visualization', '1.0', {'packages':['corechart']});
+
+    // Full list of configuration options available here:
+    // https://github.com/hakimel/reveal.js#configuration
+    Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+
+        theme: Reveal.getQueryHash().theme, // available themes are in /css/theme
+        transition: Reveal.getQueryHash().transition || 'default', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [
+            { src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+            //{ src: 'plugin/markdown/showdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            //{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+            { src: 'plugin/highlight/highlight.js', async: true, callback: function() { hljs.initHighlightingOnLoad(); } },
+            { src: 'plugin/zoom-js/zoom.js', async: true, condition: function() { return !!document.body.classList; } },
+            { src: 'plugin/notes/notes.js', async: true, condition: function() { return !!document.body.classList; } }
+            //{ src: 'plugin/search/search.js', async: true, condition: function() { return !!document.body.classList; } },
+            //{ src: 'plugin/remotes/remotes.js', async: true, condition: function() { return !!document.body.classList; } }
+        ]
+    });
+</script>
+</body>
+</html>
